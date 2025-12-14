@@ -1,6 +1,6 @@
 # Laravel SOLID Principles Example
 
-A comprehensive Laravel application demonstrating clean architecture and **SOLID principles** implementation through a User Management system.
+A comprehensive Laravel application demonstrating clean architecture and **SOLID principles** implementation through User, Product, and Order Management systems.
 
 ---
 
@@ -11,28 +11,42 @@ app/
 ├── Core/                          # Core Business Logic (Domain Layer)
 │   ├── DTOs/                      # Data Transfer Objects
 │   │   ├── UserData.php
-│   │   └── UserDetailData.php
+│   │   ├── UserDetailData.php
+│   │   ├── ProductData.php
+│   │   ├── OrderData.php
+│   │   └── OrderItemData.php
 │   ├── Interfaces/                # Contracts/Abstractions
-│   │   └── UserRepositoryInterface.php
+│   │   ├── UserRepositoryInterface.php
+│   │   ├── ProductRepositoryInterface.php
+│   │   └── OrderRepositoryInterface.php
 │   └── Services/                  # Business Logic Services
-│       └── UserService.php
+│       ├── UserService.php
+│       ├── ProductService.php
+│       └── OrderService.php
 │
 ├── Http/                          # HTTP Layer (Presentation)
 │   ├── Controllers/
 │   │   └── Web/
-│   │       └── UserController.php
+│   │       ├── UserController.php
+│   │       ├── ProductController.php
+│   │       └── OrderController.php
 │   └── Requests/
-│       └── User/
-│           ├── StoreUserRequest.php
-│           └── UpdateUserRequest.php
+│       ├── User/
+│       ├── Product/
+│       └── Order/
 │
 ├── Infrastructure/                # Infrastructure Layer
 │   └── Repositories/
-│       └── EloquentUserRepository.php
+│       ├── EloquentUserRepository.php
+│       ├── EloquentProductRepository.php
+│       └── EloquentOrderRepository.php
 │
 ├── Models/                        # Eloquent Models
 │   ├── User.php
-│   └── UserDetail.php
+│   ├── UserDetail.php
+│   ├── Product.php
+│   ├── Order.php
+│   └── OrderItem.php
 │
 └── Providers/
     └── AppServiceProvider.php     # Dependency Injection Bindings
@@ -40,7 +54,28 @@ app/
 
 ---
 
-## 🎯 SOLID Principles Demonstrated
+## 🛒 Features
+
+### Users Module
+- Full CRUD operations
+- User details management
+- Password hashing via Service layer
+
+### Products Module
+- Full CRUD operations
+- Stock management
+- Active/Inactive status
+- Price and inventory tracking
+
+### Orders Module (Mall-style)
+- Create orders with multiple products
+- Automatic stock deduction
+- Order status management (pending → processing → completed/cancelled)
+- Total amount calculation
+- User assignment
+
+---
+
 
 ### 1. **S** — Single Responsibility Principle (SRP)
 

@@ -22,6 +22,14 @@
                             class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                             Users
                         </a>
+                        <a href="{{ route('products.index') }}"
+                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                            Products
+                        </a>
+                        <a href="{{ route('orders.index') }}"
+                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                            Orders
+                        </a>
                     </div>
                 </div>
             </div>
