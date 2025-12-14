@@ -15,6 +15,8 @@
         input[type="number"] {
             border: 1.5px solid #d1d5db !important;
             background-color: #fff !important;
+            color: #1f2937 !important;
+            /* Dark text for visibility */
             padding: 0.75rem 1rem !important;
             border-radius: 0.5rem !important;
             transition: all 0.2s ease !important;

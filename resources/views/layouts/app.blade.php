@@ -157,6 +157,117 @@
         #mobile-menu:not(.hidden) {
             transform: translateX(0);
         }
+
+        /* Responsive table styles for mobile */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+        }
+
+        /* Scroll shadow indicator for mobile */
+        .table-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 30px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9));
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .table-container.show-scroll-hint::after {
+            opacity: 1;
+        }
+
+        /* Mobile-optimized table cells */
+        @media (max-width: 640px) {
+            table {
+                display: block;
+            }
+
+            table thead,
+            table tbody,
+            table tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+            }
+
+            /* Ensure minimum touch target for action buttons */
+            td a,
+            td button {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+                padding: 8px 12px !important;
+            }
+
+            /* Compact table on mobile */
+            table td,
+            table th {
+                padding: 0.75rem 0.5rem !important;
+                font-size: 0.8rem;
+            }
+
+            /* Make actions sticky on the right */
+            .sticky-actions {
+                position: sticky;
+                right: 0;
+                background: white;
+                box-shadow: -4px 0 8px -4px rgba(0, 0, 0, 0.1);
+            }
+
+            .sticky-actions::before {
+                content: '';
+                position: absolute;
+                left: -20px;
+                top: 0;
+                height: 100%;
+                width: 20px;
+                background: linear-gradient(to right, transparent, white);
+            }
+        }
+
+        /* Custom scrollbar for table container */
+        .table-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        /* Swipe hint animation for mobile */
+        @keyframes swipeHint {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(-10px);
+            }
+        }
+
+        .swipe-hint {
+            animation: swipeHint 1.5s ease-in-out 2;
+        }
     </style>
 </head>
 
