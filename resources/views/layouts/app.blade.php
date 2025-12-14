@@ -5,32 +5,197 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'User Management') - {{ config('app.name') }}</title>
+    <title>@yield('title', 'Dashboard') - {{ config('app.name') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Enhanced Form Input Styling */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="url"],
+        textarea {
+            border: 1.5px solid #d1d5db !important;
+            background-color: #fff;
+            padding: 0.625rem 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        /* Enhanced Select Field Styling */
+        select {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+            border: 1.5px solid #d1d5db !important;
+            background-color: #fff !important;
+            padding: 0.625rem 2.5rem 0.625rem 0.875rem !important;
+            border-radius: 0.5rem !important;
+            transition: all 0.2s ease !important;
+            font-size: 0.875rem !important;
+            line-height: 1.5 !important;
+            height: auto !important;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+            background-position: right 0.5rem center !important;
+            background-repeat: no-repeat !important;
+            background-size: 1.5em 1.5em !important;
+            cursor: pointer !important;
+        }
+
+        input[type="text"]:hover,
+        input[type="email"]:hover,
+        input[type="password"]:hover,
+        input[type="number"]:hover,
+        input[type="tel"]:hover,
+        input[type="date"]:hover,
+        input[type="url"]:hover,
+        select:hover,
+        textarea:hover {
+            border-color: #9ca3af !important;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="number"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        input[type="url"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #6366f1 !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #9ca3af;
+        }
+
+        /* Error state styling */
+        input.border-red-500,
+        select.border-red-500,
+        textarea.border-red-500 {
+            border-color: #ef4444 !important;
+        }
+
+        input.border-red-500:focus,
+        select.border-red-500:focus,
+        textarea.border-red-500:focus {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        /* Enhanced checkboxes */
+        input[type="checkbox"] {
+            border: 1.5px solid #d1d5db !important;
+            border-radius: 0.25rem;
+            width: 1.125rem;
+            height: 1.125rem;
+            transition: all 0.2s ease;
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: #6366f1;
+            border-color: #6366f1 !important;
+        }
+
+        input[type="checkbox"]:focus {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        /* Form labels enhancement */
+        label {
+            font-weight: 500;
+            color: #374151;
+        }
+
+        /* Card enhancements */
+        .bg-white {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Button enhancements */
+        button[type="submit"],
+        .btn-primary {
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        button[type="submit"]:hover,
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Remove default appearance for number inputs */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen">
-    <nav class="bg-white shadow-sm border-b">
+<body class="bg-gradient-to-br from-slate-50 to-gray-100 min-h-screen">
+    <nav class="bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200/50 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="{{ url('/') }}" class="text-xl font-bold text-gray-900">
+                    <a href="{{ url('/') }}"
+                        class="flex items-center gap-2 text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent hover:from-indigo-500 hover:to-purple-500 transition-all duration-200">
+                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
                         {{ config('app.name', 'Laravel') }}
                     </a>
-                    <div class="ml-10 flex items-baseline space-x-4">
+                    <div class="ml-10 flex items-baseline space-x-1">
                         <a href="{{ route('users.index') }}"
-                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                            class="{{ request()->routeIs('users.*') ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-transparent' }} flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
                             Users
                         </a>
                         <a href="{{ route('products.index') }}"
-                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                            class="{{ request()->routeIs('products.*') ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-transparent' }} flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                            </svg>
                             Products
                         </a>
                         <a href="{{ route('orders.index') }}"
-                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                            class="{{ request()->routeIs('orders.*') ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-transparent' }} flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
                             Orders
                         </a>
                     </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="{{ url('/') }}"
+                        class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 rounded-lg transition-all duration-200">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        Home
+                    </a>
                 </div>
             </div>
         </div>
